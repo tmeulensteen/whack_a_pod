@@ -12,5 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 FROM scratch
-ADD main.go /
+ADD main /
 CMD ["/main"]

@@ -61,6 +61,13 @@ deploy.generic:
 	kubectl create clusterrolebinding wap-admin --clusterrole=cluster-admin --serviceaccount=$$(kubectl config view -o jsonpath="{.contexts[?(@.name==\"$$(kubectl config current-context)\")].context.namespace}"):wap-admin
 	kubectl set serviceaccount deployment admin-deployment wap-admin
 
+deploy.generic.dockerhub:
+	kubectl run admin-deployment --image=$(DOCKERREPO):admin --replicas=1 --port=8080 --labels=app=admin --env="APIIMAGE=$(DOCKERREPO):api"
+	kubectl expose deployment admin-deployment --name=admin --target-port=8080  --type=NodePort --labels="app=admin"
+	kubectl create serviceaccount wap-admin	
+	kubectl create clusterrolebinding wap-admin --clusterrole=cluster-admin --serviceaccount=$$(kubectl config view -o jsonpath="{.contexts[?(@.name==\"$$(kubectl config current-context)\")].context.namespace}"):wap-admin
+	kubectl set serviceaccount deployment admin-deployment wap-admin
+
 test: 
 	cd 	"$(BASEDIR)/../containers" && go test
 

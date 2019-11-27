@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#BASEDIR = "D:\Github\whack-a-pod"
 BASEDIR = $(shell pwd)
 
 include Makefile.properties
@@ -47,6 +48,11 @@ deploy.generic:
 	cd "$(BASEDIR)/apps/game/kubernetes/" && $(MAKE) deploy.generic
 	cd "$(BASEDIR)/apps/admin/kubernetes/" && $(MAKE) deploy.generic
 	cd "$(BASEDIR)/apps/ingress/" && $(MAKE) deploy.generic
+
+deploy.generic.dockerhub: 
+	cd "$(BASEDIR)/apps/api/kubernetes/" && $(MAKE) deploy.generic.dockerhub
+	cd "$(BASEDIR)/apps/game/kubernetes/" && $(MAKE) deploy.generic.dockerhub
+	cd "$(BASEDIR)/apps/admin/kubernetes/" && $(MAKE) deploy.generic.dockerhub
 
 clean: env creds
 	cd "$(BASEDIR)/apps/api/kubernetes/" && $(MAKE) clean

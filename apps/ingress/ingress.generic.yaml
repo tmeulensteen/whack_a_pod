@@ -6,6 +6,7 @@
 
 #     http://www.apache.org/licenses/LICENSE-2.0
 
+# https://kubernetes.github.io/ingress-nginx/deploy/#prerequisite-generic-deployment-command
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,15 +22,15 @@ spec:
   rules:
   - http:
       paths:
-      - path: /api/*
+      - path: /api/
         backend:
           serviceName: api
           servicePort: 8080
-      - path: /admin/*
+      - path: /admin/
         backend:
           serviceName: admin
           servicePort: 8080
-      - path: /*
+      - path: /
         backend:
           serviceName: game
           servicePort: 8080
